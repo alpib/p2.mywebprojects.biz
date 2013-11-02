@@ -6,7 +6,11 @@
         </div>
         <br>
     <?php endif; ?>
-    
+    <br><br>
+    <h3>
+    Please login here:
+    </h3>
+
     Email<br>
     <input type='text' name='email'>
 

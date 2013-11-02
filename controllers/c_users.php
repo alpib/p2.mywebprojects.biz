@@ -46,7 +46,18 @@ class users_controller extends base_controller {
 
         # For now, just confirm they've signed up - 
         # You should eventually make a proper View for this
-        echo 'You\'re signed up';
+        //echo 'You\'re signed up';
+        // "This is the signup successpage";
+        # Setup view
+        $this->template->content = View::instance('v_users_signupsuccess');
+        # Login view within this view        
+        $this->template->content->login = View::instance('v_users_login');
+        $this->template->title   = "Signed Up";
+
+        # Display template
+        echo $this->template;
+
+
     }
 
     public function login($error = NULL) {
@@ -79,16 +90,12 @@ class users_controller extends base_controller {
           AND password = '".$_POST['password']."'";
 
         $token = DB::instance(DB_NAME)->select_field($q);
+        
+        if(!$token) {  # If no matching token, login failed
+        Router::redirect("/users/login/error"); # Send back to the login page 
+        } 
 
-        # If we didn't find a matching token in the database, it means login failed
-        if(!$token) {
-
-        # Send them back to the login page
-        Router::redirect("/users/login/error");
-
-        # But if we did, login succeeded! 
-        } else {
-
+        else {   # login succeeded! 
         /* 
         Store this token in a cookie using setcookie()
         Important Note: *Nothing* else can echo to the page before setcookie is called
@@ -102,10 +109,9 @@ class users_controller extends base_controller {
 
         # Send them to the main page - or whever you want them to go
         Router::redirect("/");
+        }
 
     }
-
-}
 
     public function logout() {
         //echo "This is the logout page";
@@ -127,20 +133,19 @@ class users_controller extends base_controller {
     }
 
     public function profile($user_name = NULL) {
-        /*
-        If you look at _v_template you'll see it prints a $content variable in the <body>
-        Knowing that, let's pass our v_users_profile.php view fragment to $content so 
-        it's printed in the <body>
-        */
+
+        # If user is blank, they're not logged in; redirect them to the login page
+        if(!$this->user) {
+        Router::redirect('/users/login');
+        }
+
+        # If they weren't redirected away, continue:
+
+        # Setup view
         $this->template->content = View::instance('v_users_profile');
+        $this->template->title   = "Profile of".$this->user->first_name;
 
-        # $title is another variable used in _v_template to set the <title> of the page
-        $this->template->title = "Profile";
-
-        # Pass information to the view fragment
-        $this->template->content->user_name = $user_name;
-
-        # Render View
+        # Render template
         echo $this->template;
   
     }
