@@ -1,106 +1,99 @@
 
+html, body { margin: 0; padding: 0; }
+
+body {
+        background-color: none;
+        /*color:#007cef; */       
+        font-family:'Open Sans', sans-serif;
+}
+
+h1, h3, h5 {
+        color:green;
+}
+h2, h4 {
+        color:#ffc022;
+}
+
 
 /* Creates a container with no margins and no padding. 
  */
-#container {
-  position: relative;
+/* You need something to wrap the whole thing up in, this will also control your overall width and positioning */
+#wrapper{   /*find a coding standard that works best for you so that it is readable*/
   width: 100%;
-  margin: 0 auto;
-  padding: 0;  
+  margin: 0 auto;    /*this is how you center a div*/
+  background-color:none;
 }
 
-/*create header row with height of 100*/
-#container #header {
-  position: relative;
-  margin: 0;
-  padding: 0;
+
+/*create header row */
+#header {
+  background-position: top;
   width: 100%;
-  height: 100px;
-  float: left;
-  background-color: gold;
-  border-bottom: #adde63 solid 3px;
+  height: 150px;
+  background-color: #ffc022;
+  background-image:url(../images/p2logo.jpg);
+  background-repeat:no-repeat;
+  border-top: gray solid 10px;
+  border-bottom: gray solid 10px;
 }
+  
+#header p{  /*We want to style the paragraph tags inside of the header*/
+   color: gray;
+   font-size:45px;
+   margin:0;
+   padding: 20px 20px 10px 25px; 
+   /* Top Right Bottom Left 82px will push it down enough to show the whole background...it's a hack but that's how I roll*/
+}
+
 
 /*create a holder for nav menu: */
-#container #navbar { 
-   position: relative; 
+#navbar
+{ 
    margin: 0;
-   padding: 0;
-   width: 100%;
-   height: 70px;
-   float: left;vertical-align;
-   /*border-bottom: #adde63 solid 1px; */
+   padding-left:  100px;
+   height: 50px;
 }
 
-#container #col1 {
-  position: relative;
-  width: 30%; 
-  float: left;
+#content {
+  width:100%;
+  background-color: none;
+}
+
+#content p{
+  color: #000;
+  font-size: 16px;
+  margin: 0 6px;
+  padding-left: 20px;
+}
+
+#contentview {
+  width:100%;
+  background-color: none;
+  margin-left: 50px;
+}
+
+#contentview p{
+  color: #000;
+  font-size: 16px;
+}
+
+#footer {
+  clear: both;
   height: 100px;
-}
-#container #col2 {
-  position: relative;
-  width: 70%;
-  height: 100px;
-  float: right;
-  margin: 0;
-  padding: 0;
+  background-color: #ffc022;
+  border-top: gray solid 10px;
+  border-bottom: gray solid 10px;
 }
 
-#container #colcenter {
-  position: relative;
-  width: 70%;
-  float: center;
-  margin: 0;
-  padding: 0;
-}
-
-#container #footer {
-  position: relative;
-  float: right;
-  width: 100%;
-  border-top: #adde63 solid 1px;
+#footer p {
+  font-size: 15px;
+  font-style: italic;
 }
 
 
-#container {text-align:left; color:black; font: normal 10pt "Arial Black"} 
-#colcenter {text-align:center} 
-#header {text-align:left; color:black; font: italic 8pt "Verdana"} 
-#footer {text-align:right; color:black; font: normal 8pt "Verdana"} 
-h1 {text-align:left; color:maroon; font: bold 20pt "Arial"} 
-h2 {text-align:left; color:maroon; font: normal 16pt "Verdana"}
-h3 {text-align:left; color:maroon; font: bold 12pt "Verdana"} 
-h4 {text-align:left; color:maroon; font: italic 12pt "Verdana"} 
-p {text-align:left; color:black; font: normal 10pt "Verdana"}
-
-
-/*Styling of the Appname*/
-#apptitle
-{
-    padding:0;
-}
-#apptitle li 
-{
-    display:inline;
-}
-#apptitle li a 
-{   
-   font-family:Apple Chancery;
-   font-size:32px;
-   text-decoration: none;
-   float:left;
-   color:red;
-}
-#apptitle li a:hover 
-{
-   color: darkblue; 
-}
 
 /*Styling of the navigation bar*/
-#navbar
-{
-    padding:0;
-}
+
 #navbar li 
 {
     display:inline;
@@ -110,15 +103,14 @@ p {text-align:left; color:black; font: normal 10pt "Verdana"}
    font-family:Arial;
    font-size:12px;
    text-decoration: none;
-   float:right;
+   float:center;
    padding:10px;
-   background-color: #333333;
+   background-color: gray;
    color:#ffffff;
 }
 #navbar li a:hover 
 {
-   background-color:green;
-   /*background-color:#9B1C26; -red background */
+   background-color: gold;
    padding-bottom:12px;
    border-bottom:2px;
    border-bottom-color:#000000;

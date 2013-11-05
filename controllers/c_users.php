@@ -15,18 +15,41 @@ class users_controller extends base_controller {
         //echo "This is the signup page";
         # Setup view
         $this->template->content = View::instance('v_users_signup');
-        $this->template->title   = "Sign Up";
+        $this->template->title   = "Signup";
 
-        # Display template
+        # Pass data to the view
+        $this->template->content->error = $error;
+
+        # Render template
         echo $this->template;
     }
 
     public function p_signup() {
 
-        # Dump out the results of POST to see what the form submitted
-        //echo '<pre>';
-        //print_r($_POST);
-        //echo '</pre>';   
+        # Sanitize Data Entry
+        $_POST = DB::instance(DB_NAME)->sanitize($_POST);
+
+        //Check input for blank fields
+        foreach($_POST as $field => $value){
+           if(empty($value)) {
+                //If any fields are blank, send error message
+                 Router::redirect("/users/signup/blank-fields");  
+           }
+        }  
+
+        # Set up Email / Password Query
+        $q = "SELECT * FROM users WHERE email = '".$_POST['email']."'"; 
+        
+        # Query Database
+        $user_exists = DB::instance(DB_NAME)->select_rows($q);
+
+        # Check if email exists in database
+        if(!empty($user_exists)){
+            
+                # needs to pass some error message along...
+                Router::redirect('/users/signup/user-exists');
+        } 
+        else {
 
         # More data we want stored with the user
         $_POST['created']  = Time::now();
@@ -38,16 +61,9 @@ class users_controller extends base_controller {
         # Create an encrypted token via their email address and a random string
         $_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
 
-        # Dump out the results of POST to see what the form submitted
-        // print_r($_POST);
-
         # Insert this user into the database
         $user_id = DB::instance(DB_NAME)->insert('users', $_POST);
 
-        # For now, just confirm they've signed up - 
-        # You should eventually make a proper View for this
-        //echo 'You\'re signed up';
-        // "This is the signup successpage";
         # Setup view
         $this->template->content = View::instance('v_users_signupsuccess');
         # Login view within this view        
@@ -57,8 +73,9 @@ class users_controller extends base_controller {
         # Display template
         echo $this->template;
 
+       }
 
-    }
+    } #end of p_signup
 
     public function login($error = NULL) {
         //echo "This is the login page";
@@ -143,11 +160,52 @@ class users_controller extends base_controller {
 
         # Setup view
         $this->template->content = View::instance('v_users_profile');
+        
+        $this->template->content->followerposts = View::instance('v_posts_followerposts');
         $this->template->title   = "Profile of".$this->user->first_name;
 
         # Render template
         echo $this->template;
   
     }
+
+    public function uploadphoto($error = NULL) {
+        
+                # Sanitize Data Entry
+            $_POST = DB::instance(DB_NAME)->sanitize($_POST);
+                
+        # Upload Image
+        if ($_FILES['avatar']['error'] == 0) {
+            
+            $avatar = Upload::upload($_FILES, "/uploads/avatars/", array('jpg', 'jpeg', 'gif', 'png'), $this->user->user_id);
+
+            if($avatar == 'Invalid file type.') {
+                
+                # Error
+                Router::redirect("/users/profile/error"); 
+            }
+            
+            else {
+                
+                # Upload Image
+                $data = Array('avatar' => $avatar);
+                DB::instance(DB_NAME)->update('users', $data, 'WHERE user_id = '.$this->user->user_id);
+
+                # Resize and Save Image
+                $imageObj = new Image($_SERVER['DOCUMENT_ROOT'].'/uploads/avatars/'.$avatar);
+                $imageObj->resize(150,150);
+            }
+        }
+        
+        else {
+        
+            # Error
+            Router::redirect("/users/profile/error");  
+        }
+
+        # Send to Profile Page
+        Router::redirect('/users/profile'); 
+    }  
+           
 
 } # end of the class

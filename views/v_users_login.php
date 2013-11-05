@@ -1,3 +1,4 @@
+<div id="contentview">
 <form method='POST' action='/users/p_login'>
 
      <?php if(isset($error)): ?>
@@ -6,7 +7,7 @@
         </div>
         <br>
     <?php endif; ?>
-    <br><br>
+    
     <h3>
     Please login here:
     </h3>
@@ -24,3 +25,4 @@
     <input type='submit' value='Log in'>
 
 </form>
+</div>

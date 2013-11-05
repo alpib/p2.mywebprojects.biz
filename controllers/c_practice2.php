@@ -53,3 +53,10 @@ public function profile_update() {
 
         # Render View
         echo $this->template;
+
+
+$this->userObj->confirm_unique_email($email)
+
+
+
+        

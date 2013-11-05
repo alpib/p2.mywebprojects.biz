@@ -1,0 +1,131 @@
+
+html, body { margin: 0; padding: 0; }
+/* Creates a container with no margins and no padding. 
+ */
+#container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;  
+}
+
+/*create header row with height of 100*/
+#container #header {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100px;
+  float: center;
+  /* background-color: gold; */
+  background-image:url(../images/p2logo.jpg);
+  background-repeat:no-repeat;
+  border-bottom: #adde63 solid 3px;
+}
+
+/*create a holder for nav menu: */
+#container #navbar { 
+   position: relative; 
+   margin: 0;
+   padding: 0;
+   width: 100%;
+   height: 70px;
+   float: left;vertical-align;
+   /*border-bottom: #adde63 solid 1px; */
+}
+
+#container #col1 {
+  position: relative;
+  width: 30%; 
+  float: left;
+  height: 100px;
+}
+#container #col2 {
+  position: relative;
+  width: 70%;
+  height: 100px;
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+#container #colcenter {
+  position: relative;
+  width: 70%;
+  float: center;
+  margin: 0;
+  padding: 0;
+}
+
+#container #footer {
+  position: relative;
+  float: right;
+  width: 100%;
+  height: 100px;
+  background-color: gold;
+  border-top: #adde63 solid 3px;
+}
+
+
+#container {text-align:left; color:black; font: normal 10pt "Arial Black"} 
+#colcenter {text-align:center} 
+#header {text-align:left; color:black; font: italic 8pt "Verdana"} 
+#footer {text-align:right; color:black; font: normal 8pt "Verdana"} 
+h1 {text-align:left; color:maroon; font: bold 20pt "Arial"} 
+h2 {text-align:left; color:maroon; font: normal 16pt "Verdana"}
+h3 {text-align:left; color:maroon; font: bold 12pt "Verdana"} 
+h4 {text-align:left; color:maroon; font: italic 12pt "Verdana"} 
+p {text-align:left; color:black; font: normal 10pt "Verdana"}
+
+
+/*Styling of the Appname*/
+#apptitle
+{
+    padding:0;
+}
+#apptitle li 
+{
+    display:inline;
+}
+#apptitle li a 
+{   
+   font-family:Apple Chancery;
+   font-size:38px;
+   text-decoration: none;
+   float:left;
+   color:maroon;
+}
+#apptitle li a:hover 
+{
+   color: darkblue; 
+}
+
+/*Styling of the navigation bar*/
+#navbar
+{
+    padding:0;
+}
+#navbar li 
+{
+    display:inline;
+}
+#navbar li a 
+{   
+   font-family:Arial;
+   font-size:12px;
+   text-decoration: none;
+   float:right;
+   padding:10px;
+   background-color: #333333;
+   color:#ffffff;
+}
+#navbar li a:hover 
+{
+   background-color:green;
+   /*background-color:#9B1C26; -red background */
+   padding-bottom:12px;
+   border-bottom:2px;
+   border-bottom-color:#000000;
+   border-bottom-style:solid;
+   margin:-1px;
+}
