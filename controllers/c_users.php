@@ -129,7 +129,11 @@ class users_controller extends base_controller {
     } #end of p_signup
 
     public function login($error = NULL) {
-        //echo "This is the login page";
+        
+        if($this->user) { #If they are already logged in
+        Router::redirect('/users/profile');
+        }
+
         # Setup view
         $this->template->content = View::instance('v_users_login');
         $this->template->title   = "Login";
