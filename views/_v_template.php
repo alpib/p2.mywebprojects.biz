@@ -20,12 +20,12 @@
 </head>
 
 <body>	
-    <div ="wrapper">
+    <div id="wrapper">
     <div id="header"></div> <!-- end of header -->
 
     
         <div id='navbar'>
-            <ul id="navbar">
+            <ul>
             <li><a href='/'>Home</a></li>
 
             <!-- Menu for users who are logged in -->
