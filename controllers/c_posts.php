@@ -35,9 +35,29 @@ class posts_controller extends base_controller {
         DB::instance(DB_NAME)->insert('posts', $_POST);
 
         # Send them back to home page
-        Router::redirect('/');
+        Router::redirect('/posts/index');
 
     }
+
+    public function confirm_deletepost($post_id) {
+        # Set up the View
+        $this->template->content = View::instance('v_posts_deletepost');
+        $this->template->title   = "Confirm delete?";
+        $this->template->content->post_id = $post_id;
+
+        # Render template
+        echo $this->template;
+
+    }
+
+
+    public function p_deletepost($post_id) {
+        $data = "WHERE post_id = ".$post_id; 
+        DB::instance(DB_NAME)->delete('posts',$data);
+
+        Router::redirect('/users/profile'); 
+    }
+
 
     public function index() {
 

@@ -9,7 +9,13 @@
         <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
         <?=Time::display($post['created'])?>
         </time>
-    </h4>
+        </h4>
+         <!-- delete option if the post belongs to user -->
+        <?php if($post['user_id'] == $user->user_id): ?>
+                <div id="deletebutton">
+                <a href='/posts/confirm_deletepost/<?=$post['post_id']?>'>Delete</a>
+                </div>
+        <?php endif; ?>
 
 </article>
 

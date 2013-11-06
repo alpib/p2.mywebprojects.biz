@@ -3,7 +3,8 @@
 
            
         <h1>Welcome to <?=APP_NAME?> <br></h1>
-        <h4>At Chitchat you can share your thoughts with fellow chatters and read what everyone else is chattering about.</h4>
+        <h4>At Chitchat you can share your thoughts with fellow chatters and <br> 
+          read what everyone else is chattering about.</h4>
 
         This is a simple microblog where you can: <br>
         <ul>
@@ -18,7 +19,6 @@
         <a href="/users/login">Login</a> if you are already a registered chatter.<br>
         or <a href="/users/signup">Signup</a> to create a new account 
                 
-
 </div>
 
 

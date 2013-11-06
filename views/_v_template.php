@@ -35,7 +35,7 @@
             <li><a href='/users/profile'>Profile</a></li>
             <li><a href='/posts/add'>New Chat</a></li>
             <li><a href='/posts/followedposts'>My Chatter</a></li>
-            <li><a href='/posts/users'>Chitchattrs</a></li>
+            <li><a href='/posts/users'>All Chitchatters</a></li>
             <li><a href='/posts/index'>All Chatter</a></li>
 
             <!-- Menu options for users who are not logged in -->
@@ -60,10 +60,10 @@
         <br>
 
 
-         <div id="footer">
-         <p> +1 feature: upload an image to profile </p>
-         <p>Harvard Extension School CSCI E-15          Copyright 2013  Alpana Barua</p>
-         </div> <!-- end of footer -->
+        <div id="footer">
+        <p> +1 features: Upload an image to profile and Delete your own post </p>
+        <p>Harvard Extension School CSCI E-15          Copyright 2013  Alpana Barua</p>
+        </div> <!-- end of footer -->
 
           </div> <!-- end of containermiddle-->
 

@@ -1,4 +1,12 @@
 <div id="contentview">
+
+<?php if($Posts == "") : ?>
+	<h3>Follow some Chitchatters to find out what they are talking about</h3>
+    <a href='/posts/users'>All Chitchatters</a>
+
+<?php endif; ?>
+
+
 <?php foreach($posts as $post): ?>
 
 <article>
