@@ -25,31 +25,6 @@ class users_controller extends base_controller {
     }
 
     public function p_signup() {
-        /*
-        # Sanitize Data Entry
-        $_POST = DB::instance(DB_NAME)->sanitize($_POST);
-         
-         //Check input for blank fields
-        foreach($_POST as $field => $value){
-           if(empty($value)) {
-                //If any fields are blank, send error message
-                 Router::redirect("/users/signup/blank-fields");  
-           }
-        }  
-
-        # Set up Email / Password Query
-        $q = "SELECT * FROM users WHERE email = '".$_POST['email']."'"; 
-        
-        # Query Database
-        $user_exists = DB::instance(DB_NAME)->select_rows($q);
-
-        # Check if email exists in database
-        if(!empty($user_exists)){
-            
-                # needs to pass some error message along...
-                Router::redirect('/users/signup/user-exists');
-        } 
-        else {  */
 
         # Set Up view
         $this->template->content = View::instance('v_users_signup');
@@ -86,7 +61,7 @@ class users_controller extends base_controller {
         # If a field was more than 25 characters, add a message to the error View variable
         foreach($_POST as $field_name => $value) {
                 if(strlen($value) > $limit) {
-                $this->template->content->error .= str_replace('_',' ', (ucfirst($field_name))).' was more than 25 characters. Try again doggie!<br>';
+                $this->template->content->error .= str_replace('_',' ', (ucfirst($field_name))).' was more than 25 characters.<br>';
                 $error = true;
                         }
                 }        
@@ -120,6 +95,7 @@ class users_controller extends base_controller {
         # More data we want stored with the user
         $_POST['created']  = Time::now();
         $_POST['modified'] = Time::now();
+        $_POST['avatar'] = 'defaultimage.jpeg';
 
         # Encrypt the password  
         $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);            
@@ -180,13 +156,13 @@ class users_controller extends base_controller {
                         # Send them back to the index page and display email message
                 Router::redirect("/users/login/email");
 
-        # If just password was blank
+            # If just password was blank
                 } elseif(empty($_POST['password'])) {
                         # Send them back to the index page and display password message
                     Router::redirect("/users/login/pword");
                 }
                 
-                # End of Error Checking
+        # End of Error Checking
 
         # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
         $_POST = DB::instance(DB_NAME)->sanitize($_POST);
@@ -220,7 +196,7 @@ class users_controller extends base_controller {
         setcookie("token", $token, strtotime('+1 year'), '/');
 
         # Send them to the main page - or whever you want them to go
-        Router::redirect("/");
+        Router::redirect("/users/profile");
         }
 
     }  #end of p_login
@@ -264,17 +240,12 @@ class users_controller extends base_controller {
         $this_user_id = $this->user->user_id;
 
         # This selects all posts from logged in user 
-        /*$q = "SELECT posts.* , users.first_name, users.timezone, users.avatar
+        $q = "SELECT posts.* , users.first_name, users.timezone, users.avatar
         FROM posts
         JOIN users 
         WHERE posts.user_id = users.user_id AND users.user_id= '$this_user_id' 
-        ORDER BY posts.created DESC */
-            $q = "SELECT posts .* , users.first_name, users.last_name, users.avatar
-            FROM posts
-            INNER JOIN users 
-            ON posts.user_id = users.user_id 
-            ORDER BY posts.created DESC
-            LIMIT 5"; 
+        ORDER BY posts.created DESC
+        LIMIT 5"; 
 
         # Find logged in user posts in DB
         $posts = DB::instance(DB_NAME)->select_rows($q);
@@ -308,8 +279,29 @@ class users_controller extends base_controller {
   
     }   #end of profile
 
-    
+    public function new_photo_upload() {
+        // if user specified a new image file, upload it
+        if ($_FILES['avatar']['error'] == 0){
+            //upload an image
+            $avatar = Upload::upload($_FILES, "/uploads/avatars/", array("jpg", "JPG", "jpeg", "JPEG", "gif", "GIF", "png", "PNG"), $this->user->user_id);
 
+            $data = Array("avatar" => $avatar);
+            DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = ".$this->user->user_id);
+
+            // resize the image and make a thumbnail version resize image.  This code is not working
+            //$imgObj = new Image($_SERVER["DOCUMENT_ROOT"] . '/uploads/avatars/' . $avatar);
+            //$imgObj->resize(100,100, "crop");
+            //$imgObj->save_image($_SERVER["DOCUMENT_ROOT"] . '/uploads/avatars/' . $avatar); 
+
+             # Redirect
+           Router::redirect("/users/profile");
+        }
+
+        // Redirect back to the profile page
+        Router::redirect('/users/profile'); 
+    }    
+    
+    #Edit profile has bugs so took it out
     public function editprofile($user_name = NULL) {
 
         # Make sure user is logged in or redirect to index page
@@ -327,6 +319,7 @@ class users_controller extends base_controller {
         $this->template->content->first_name = $first_name;
         $this->template->content->last_name = $last_name;
         $this->template->content->email = $email;
+        $this->template->content->avatar = $avatar;
 
         # Pass data to the view
         $this->template->content->error = $error;
@@ -335,72 +328,55 @@ class users_controller extends base_controller {
         echo $this->template;
 
     }
-
+    
+    #Edit profile has bugs so took it out
     public function p_editprofile($user_name = NULL) {
 
+        # Set Up view
+        $this->template->content = View::instance('v_users_editprofile');
+        $this->template->title = "Edit Profile";
+
+
         # No errors yet
-        #$error = false;
+        $error = false;
+
         # Initiate error
-        #$this->template->content->error = '<br>';
+        $this->template->content->error = '<br>';
+                
+        # If not submitted yet 
+        if(!$_POST) {
+            echo $this->template;
+                return;
+                }
 
-        # If Cancel button is clicked 
-        #if (($_POST['submit']) =='Cancel') {
-            # Send them to back to user profile page
-            #Router::redirect("/users/profile");
-        #}
+        # Begin Error Checking
 
-        # Sanitize
+        # If a field was blank, return error
+        foreach($_POST as $field_name => $value) {
+                if(empty($value)) {
+                $this->template->content->error .= str_replace('_',' ', (ucfirst($field_name))).' was blank.<br>';
+                $error = true;
+                        }
+                }        
+           
+        # Verify email is in correct format, but not blank, send error if bad format
+        if (!filter_var(($_POST["email"]), FILTER_VALIDATE_EMAIL) && (!empty($_POST["email"]))) {
+            $this->template->content->error_email = 'Email address not in correct format.<br>';
+            $error = true;
+                }
+
+        # Sanitize 
         $_POST = DB::instance(DB_NAME)->sanitize($_POST);
 
-        
-        # Processing Upload of avatar image
+        # End of Error Checking
 
-        # If Image is too large to upload
-        if($_FILES['avatar']['error'] == 1) {
-            $this->template->content->error = 'Image file way too big. Please upload a smaller image<br>';
-            $error = true;
-        }
-        
-        # If nothing was uploaded
-        if($_FILES['avatar']['error'] == 4) {
-                
-            # Then check if avatar is the default or if they have uploaded one already
-            # If they only have the default image then keep that as their avatar
-            if ($this->user->avatar == '/uploads/avatars/defaultimage.jpeg') {
-                    $avatar = 'defaultimage.jpeg';        
-        
-            } else { # If they have uploaded an image in the past, keep that image
-                    $avatar = trim(str_replace('/uploads/avatars/','', $this->user->avatar ));
-            }
-       
-        } else { # If they have uploaded an image 
 
-            # And no other errors occured, then upload the image
-            if($_FILES['avatar']['error'] == 0) {
-            # Insert the image into the avatars folder and rename it with the user id before the file extension
-                $avatar = Upload::upload($_FILES, "/uploads/avatars/", array("jpg", "jpeg", "gif", "png", "JPG","JPEG","GIF","PNG"), $this->user->user_id);
-
-                # Resize the image for faster downloads and consistent display
-                $imgObj = new Image(APP_PATH . '/uploads/avatars/' . $avatar);
-                $imgObj->resize(110, 110, "crop");
-                $imgObj->save_image(APP_PATH."uploads/avatars/". $avatar); 
-
-                # Check if file extension of image is one of the allowed types, if not return error.
-                if($avatar == 'Invalid file type.') {
-                $this->template->content->error = 'Image file was not valid. Please use a valid image type of jpg, jpeg, gif or png.<br>';
-                $error = true; 
-                }
-            }
-        }        
-        
-        # End of Uploading image - now insert avatar name with the main UPDATE query
         
         if(!$error) {  # If no errors after submission, Update their profile
             $q = "UPDATE users SET 
             first_name = '".$_POST['first_name']."', 
             last_name = '".$_POST['last_name']."', 
-            email = '".$_POST['email']."',
-            avatar = '$avatar'
+            email = '".$_POST['email']."'
             WHERE user_id = " .$this->user->user_id; 
 
             # Run the command

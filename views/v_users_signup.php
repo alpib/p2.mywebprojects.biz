@@ -1,10 +1,10 @@
 <div id="contentview">
 <form method='POST' action='/users/p_signup'>
-    <h4>
+    <h5>
     <div class='error'>
     <?php if(isset($error_email)) echo $error_email; ?>        
     <?php if(isset($error)) echo $error; ?>        
-    </div></h4>
+    </div></h5>
 
     <h3>
     Please signup here:
@@ -20,15 +20,15 @@
 
     Email<br>
     <input type='text' name='email'>
-
-    <br><br>
+    <br>
 
     Password<br>
     <input type='password' name='password'>
+    <br>
+    
+    <br>
 
-    <br><br>
-
-    <input type='submit' value='Register'>
+    <input type='submit' value='Signup'>
 
 </form>
 </div>

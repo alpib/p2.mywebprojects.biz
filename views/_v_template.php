@@ -37,7 +37,6 @@
             <li><a href='/posts/followedposts'>My Chatter</a></li>
             <li><a href='/posts/users'>Chitchattrs</a></li>
             <li><a href='/posts/index'>All Chatter</a></li>
-            
 
             <!-- Menu options for users who are not logged in -->
             <?php else: ?>
@@ -51,7 +50,7 @@
       
         <!--OPEN CONTENT--> 
 
-        <div id="content">
+        <div id="containermiddle">
 
         <!--start content text-->
 
@@ -62,11 +61,11 @@
 
 
          <div id="footer">
-         <p>Harvard Extension School CSCI E-15 </p>
-         <p>Copyright 2013  Alpana Barua</p>
+         <p> +1 feature: upload an image to profile </p>
+         <p>Harvard Extension School CSCI E-15          Copyright 2013  Alpana Barua</p>
          </div> <!-- end of footer -->
 
-          </div> <!-- end of content-->
+          </div> <!-- end of containermiddle-->
 
     </div> <!-- end of wrapper -->
 

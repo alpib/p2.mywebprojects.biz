@@ -9,14 +9,21 @@
     <?php endif; ?> 
     <?php if(isset($error) && $error == 'email'): ?>
         <div class='error'>
-            Login failed. Please double check your email.
+            Login failed. Please enter your email.
         </div>
         <br>
     <?php endif; ?> 
 
     <?php if(isset($error) && $error == 'pword'): ?>
         <div class='error'>
-            Login failed. Please double check your password.
+            Login failed. Please enter your password.
+        </div>
+        <br>
+    <?php endif; ?> 
+
+        <?php if(isset($error) && $error == 'error'): ?>
+        <div class='error'>
+            Login failed. Email or password invalid.
         </div>
         <br>
     <?php endif; ?> 

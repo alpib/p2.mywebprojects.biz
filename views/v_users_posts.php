@@ -2,7 +2,10 @@
 <?php foreach($posts as $post): ?>
 
         <article>
-            <img src='/uploads/avatars/<?=$post['avatar']?>'>
+        
+        <div id="thumbnail">
+            <img src='/uploads/avatars/<?=$post['avatar']?>' width="50" height="50">
+        </div>
                 
             <h4><?=$post['first_name']?> <?=$post['last_name']?> posted:</h4>
 
