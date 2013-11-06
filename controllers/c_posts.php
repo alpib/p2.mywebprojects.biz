@@ -127,10 +127,10 @@ class posts_controller extends base_controller {
 
     }
 
-    public function followerposts() {
+    public function followedposts() {
 
     # Set up the View
-    $this->template->content = View::instance('v_posts_followerposts');
+    $this->template->content = View::instance('v_posts_followedposts');
     $this->template->title   = "All Chats from follower";
 
     # Query

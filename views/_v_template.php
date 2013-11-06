@@ -34,7 +34,7 @@
             <li><a href='/users/logout'>Logout</a></li>
             <li><a href='/users/profile'>Profile</a></li>
             <li><a href='/posts/add'>New Chat</a></li>
-            <li><a href='/posts/followerposts'>My Chatter</a></li>
+            <li><a href='/posts/followedposts'>My Chatter</a></li>
             <li><a href='/posts/users'>Chitchattrs</a></li>
             <li><a href='/posts/index'>All Chatter</a></li>
             

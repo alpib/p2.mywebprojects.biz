@@ -1,4 +1,4 @@
-
+<div id="contentview">
 <?php foreach($posts as $post): ?>
 
 <article>
@@ -14,3 +14,4 @@
 </article>
 
 <?php endforeach; ?>
+</div>

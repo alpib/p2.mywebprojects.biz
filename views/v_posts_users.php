@@ -1,9 +1,8 @@
-<br>
-<h1>Fellow Chitchattrs</h1>
-<br>
+<div id="contentview">
+<h2>Fellow Chitchattrs</h2>
 
 <?php foreach($users as $user): ?>
-
+    
     <!-- Print this user's name -->
     <?=$user['first_name']?> <?=$user['last_name']?>
 
@@ -15,7 +14,7 @@
     <?php else: ?>
         <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
     <?php endif; ?>
-
     <br><br>
 
 <?php endforeach; ?>
+</div>

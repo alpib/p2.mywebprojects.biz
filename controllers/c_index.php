@@ -35,7 +35,7 @@ class index_controller extends base_controller {
 			echo $this->template;
          */
 
-    # Setup view
+            # Setup view
             $this->template->content = View::instance('v_index_index');
             $this->template->title   = "Chitchat"; 
             $this->template->content->moreContent = View::instance('v_users_login'); 

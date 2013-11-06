@@ -1,13 +1,28 @@
 <div id="contentview">
 <form method='POST' action='/users/p_login'>
-
-     <?php if(isset($error)): ?>
+     <h5>
+     <?php if(isset($error) && $error == 'both'): ?>
         <div class='error'>
             Login failed. Please double check your email and password.
         </div>
         <br>
-    <?php endif; ?>
-    
+    <?php endif; ?> 
+    <?php if(isset($error) && $error == 'email'): ?>
+        <div class='error'>
+            Login failed. Please double check your email.
+        </div>
+        <br>
+    <?php endif; ?> 
+
+    <?php if(isset($error) && $error == 'pword'): ?>
+        <div class='error'>
+            Login failed. Please double check your password.
+        </div>
+        <br>
+    <?php endif; ?> 
+
+    <h5>
+     
     <h3>
     Please login here:
     </h3>

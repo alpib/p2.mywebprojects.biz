@@ -1,17 +1,30 @@
-<h1>Edit your profile</h1>
-<form action="/users/p_editprofile" method="post" accept-charset="utf-8">
-  First name<br>
-  <input type="text" name="first_name" value="<?=$user->first_name;?>"><br>
-  Last name<br>
-  <input type="text" name="last_name" value="<?=$user->last_name;?>"><br>
-  Email<br>
-  <input type="text" name="email" value="<?=$user->email;?>"><br>
-  Password<br>
-  <input type="text" name="password"><br>
+<div id='contentview'>
+  <form method='POST' enctype="multipart/form-data" action='/users/p_editprofile'>
+    <h2>Edit Your Profile <?=$user->first_name?></h2>
 
- 
-  Photo<br>
-  <input type='file' accept='image' name='avatar'><br>
-  Bio<br>
-  <textarea name="bio" id= rows="8" cols="40"></textarea><br>
-</form>
+     <h5><div class='error'>
+      <?php if(isset($error_email)) echo $error_email; ?>        
+      <?php if(isset($error)) echo $error; ?>        
+    </div></h5>
+
+    <h3>All Fields Are Required</h3>
+    <label for='first_name'>First Name:</label><br>
+    <input type='text' name='first_name' value='<?=$first_name?>'>
+    <br><br>
+
+    <label for='last_name'>Last Name:</label><br>
+    <input type='text' name='last_name' value='<?=$last_name?>'>
+    <br><br>
+
+    <label for='email'>Email:</label><br>
+    <input type='text' name='email' value='<?=$email?>'>
+    <br><br>
+
+    <label for='avatar'>Photo:</label><br>
+    <input type='file' name='avatar'>
+    <br><br>
+
+    <input type='submit' name='submit' value='Save Changes'>
+
+  </form>
+</div>

@@ -1,22 +1,11 @@
 <div id="contentview">
 <form method='POST' action='/users/p_signup'>
+    <h4>
+    <div class='error'>
+    <?php if(isset($error_email)) echo $error_email; ?>        
+    <?php if(isset($error)) echo $error; ?>        
+    </div></h4>
 
-     <?php if(isset($error) && $error == 'blank-fields'): ?>
-        <div class='error'>
-             Signup Failed. All fields are required.
-        </div>
-        <br>
-    <?php endif; ?>
-
-    <?php if(isset($error) && $error == 'user-exists'): ?>
-        <div class='error'>
-            There is already an account associated with this email. 
-            <a href="/users/login">Login</a>
-        </div>
-        
-    <?php endif; ?>
-
-    
     <h3>
     Please signup here:
     </h3>
